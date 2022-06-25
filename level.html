@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VocaRacer - Choose Level</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            if (!localStorage.name) {
+                location.href = 'index';
+            }
+        </script>
+    </head>
+    <body>
+        <button id="back" onclick="location.href='index'" style="float:right;">Back</button>
+        <label>Name: <span id="name"></span></label><br>
+        <hr>
+        <label>Select a set to practice.</label><br>
+        <label>Level: </label>
+        <select id="level">
+        </select><br>
+        <button id="submit">Next</button>
+        <script src="vocab.js"></script>
+        <script>
+            // Make copy of "document.querySelector" named "get"
+            const get = str => document.querySelector(str);
+
+            // Set visible name to name cookie
+            get('#name').innerText = localStorage.name;
+            
+            // Insert level select options
+            const level = get('#level');
+            for (const key in vocab) {
+                level.innerHTML += `<option value="${key}">${key}</option>`;
+            }
+
+            // Submit level and lesson when button is clicked
+            get('#submit').onclick = function () {
+                localStorage.level = get('#level').value.trim();
+                location.href = 'mode';
+            }
+
+            // Click submit when enter key is pressed
+            get('body').onkeyup = function (event) {
+                if (event.key == "Enter") {
+                    get('#submit').click();
+                }
+            }
+        </script>
+    </body>
+</html>
