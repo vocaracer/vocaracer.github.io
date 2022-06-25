@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VocaRacer - Choose Mode</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            if (!localStorage.name || !localStorage.level) {
+                location.href = 'index';
+            }
+        </script>
+    </head>
+    <body>
+        <button id="back" onclick="location.href='level'" style="float:right;">Back</button>
+        <label>Name: <span id="name"></span></label><br>
+        <label>Level: <span id="level"></span></label><br>
+        <label style="display:none">Score: <span id="score"></span><br></label>
+        <hr>
+        <label>Choose a mode.</label><br>
+        <button onclick="location.href='train'">Train</button>
+        <button onclick="location.href='test'">Test</button>
+        <script>
+            // Make copy of "document.querySelector" named "get"
+            const get = str => document.querySelector(str);
+
+            // Set visible name and lesson to cookie values
+            get('#name').innerText = localStorage.name;
+            get('#level').innerText = localStorage.level;
+
+            // Show score if user has a score for current level
+            let score = localStorage[`score [${localStorage.level}]`];
+            if (score) {
+                get('#score').innerText = score;
+                get('#score').parentElement.style.display = '';
+            }
+        </script>
+    </body>
+</html>
