@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>VocaRacer - Train</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/style.css">
         <script>
             if (!localStorage.name || !localStorage.level) {
                 location.href = 'index';
@@ -17,7 +17,7 @@
         <label>Time left: <span id="time">60 seconds</span></label>
         <hr>
         <table><tbody id="terms"></tbody></table>
-        <script src="vocab.js"></script>
+        <script src="/vocab.js"></script>
         <script>
             // Make copy of "document.querySelector" named "get"
             const get = str => document.querySelector(str);
