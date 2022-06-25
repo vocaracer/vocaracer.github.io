@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>VocaRacer - Train</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            if (!localStorage.name || !localStorage.level) {
+                location.href = 'index';
+            }
+        </script>
+    </head>
+    <body>
+        <button id="back" onclick="location.href='mode'" style="float:right;">Back</button>
+        <label>Name: <span id="name"></span></label><br>
+        <label>Level: <span id="level"></span></label><br>
+        <label>Mode: Training</label><br>
+        <label>Time left: <span id="time">60 seconds</span></label>
+        <hr>
+        <table><tbody id="terms"></tbody></table>
+        <script src="vocab.js"></script>
+        <script>
+            // Make copy of "document.querySelector" named "get"
+            const get = str => document.querySelector(str);
+
+            // Set visible name and lesson to cookie values
+            get('#name').innerText = localStorage.name;
+            get('#level').innerText = localStorage.level;
+
+            // Add terms from vocab.js
+            const terms = get('#terms');
+            for (const [definition, word] of Object.entries(vocab[localStorage.level])) {
+                terms.innerHTML += '<tr><td id="word"></td><td id="definition"></td></tr>';
+                get('#word').innerText = word;
+                get('#word').removeAttribute('id');
+                get('#definition').innerText = definition;
+                get('#definition').removeAttribute('id');
+            }
+            
+            // Timer
+            const time = get('#time');
+            var start = Date.now();
+            var loop = setInterval(function () {
+                var delta = Math.floor((Date.now()-start)/1000);
+                if (delta < 59) {
+                    time.innerText = ''+(60-delta)+' seconds';
+                } else if (delta == 59) {
+                    time.innerText = '1 second';
+                } else {
+                    clearInterval(loop);
+                    location.href = 'mode';
+                }
+            }, 100);
+        </script>
+    </body>
+</html>
